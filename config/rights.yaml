@@ -1,0 +1,435 @@
+# TV rights map for the 2026/27 season (UK English, German, Dutch).
+# US channels come from ESPN's live broadcast data, not from this file.
+#
+# Layout:  competitions → <ESPN league slug or nfl/cfb/mlb/f1> → <country> → block
+# A block has `source` (one or more URLs), `checked` (date), and `rules`.
+# Rules are tried top to bottom; the first rule whose `when` matches is used.
+# A rule without `when` always matches, so put it last as the default.
+# A rule may override the block's `source`, `checked` and `confidence`.
+#
+# `when` conditions (all must match; times and weekdays are local to the country):
+#   weekdays: [mon, tue, wed, thu, fri, sat, sun]
+#   times:    ["15:30", "18:30"]        exact kickoff times
+#   after:    "19:00"                   kickoff at or after
+#   stages:   [final, semifinals]       ESPN stage slugs
+#   teams:    ["481"]                   either team (ESPN ids)
+#   home_team / away_team: ["481"]
+#   league_teams: ger.1                 a team from that league's current table plays
+#   tags:     [primetime, postseason]   tags set by the rule filters
+#   event_ids: ["401915411"]            pin one specific match
+#
+# confidence: high | medium | low. Low-confidence channels show as "DAZN?".
+
+countries:
+  UK: {label: EN, timezone: Europe/London}
+  DE: {label: DE, timezone: Europe/Berlin}
+  NL: {label: NL, timezone: Europe/Amsterdam}
+
+competitions:
+
+  ger.1:   # Bundesliga
+    DE:
+      source:
+        - https://www.bundesliga.com/de/bundesliga/news/bundesliga-spiele-im-fernsehen-tv-sender-rtl-dazn-sky-prime-363
+        - https://www.fussballdaten.de/news/bundesliga-uebertragung-2026-27-wer-zeigt-spiele-live-tv-stream/
+      checked: 2026-09-26
+      confidence: high
+      note: Sat.1 (9 games) and RTL (up to 10 games) add selected free-TV matches.
+      rules:
+        - when: {weekdays: [fri]}
+          channels: [Sky]
+        - when: {weekdays: [sat], times: ["15:30"]}
+          channels: [Sky, DAZN (Konferenz)]
+        - when: {weekdays: [sat], times: ["18:30"]}
+          channels: [Sky]
+        - when: {weekdays: [sun]}
+          channels: [DAZN]
+        - when: {weekdays: [mon, tue, wed, thu]}
+          channels: [Sky, DAZN (Konferenz)]
+        - channels: [Sky]
+          confidence: low
+    UK:
+      source:
+        - https://matchcast.tv/guides/how-to-watch-bundesliga-2026-27-in-uk
+        - https://www.bundesliga.com/en/bundesliga/news/bundesliga-international-unveils-multi-layered-strategy-in-uk-and-ireland-33589
+      checked: 2026-09-26
+      confidence: medium
+      rules:
+        - when: {weekdays: [fri]}
+          channels: [BBC iPlayer]
+        - when: {weekdays: [sat], times: ["17:30"]}
+          channels: [Sky Sports]
+        - when: {weekdays: [sun]}
+          channels: [Prime Video (PPV)]
+        - channels: [Sky Sports+]
+          confidence: low
+    NL:
+      source:
+        - https://www.ziggo.nl/entertainment/sport/voetbal/bundesliga
+      checked: 2026-09-26
+      confidence: medium
+      note: DPG Media bought Viaplay NL; rights may move to Videoland once the takeover is approved.
+      rules:
+        - channels: [Viaplay]
+
+  ger.2:   # 2. Bundesliga
+    DE:
+      source:
+        - https://anstosszeiten.de/2-bundesliga/tv/
+        - https://www.spox.com/fussball/news/2-bundesliga-uebertragungsrechte-saison-2026-27-wie-viele-und-welche-spiele-zeigt-uebertraegt-rtl-live-im-free-tv-sowie-livestream/bltf54696b684687a55
+      checked: 2026-09-26
+      confidence: high
+      rules:
+        - when: {weekdays: [sat], times: ["20:30"]}
+          channels: [Sky, RTL/NITRO]
+          confidence: medium
+        - channels: [Sky]
+    NL:
+      source:
+        - https://www.ziggo.nl/entertainment/sport/voetbal/2e-bundesliga
+      checked: 2026-09-26
+      confidence: medium
+      rules:
+        - channels: [Viaplay]
+
+  ger.dfb_pokal:   # DFB-Pokal
+    DE:
+      source:
+        - https://www.dfb.de/news/medienrechte-fuer-die-spielzeiten-2026/2027-bis-2029/2030-vergeben
+        - https://www.dfb.de/maenner/wettbewerbe/dfb-pokal/tv-partner
+      checked: 2026-09-26
+      confidence: high
+      note: Sky shows all 63 games; ARD, ZDF and RTL add at least 15 selected free-TV games.
+      rules:
+        - channels: [Sky]
+
+  eng.1:   # Premier League
+    UK:
+      source:
+        - https://www.premierleague.com/en/news/3807882
+        - https://www.digital-tv.co.uk/guides/how-to-watch-premier-league-sky-tnt-sports
+      checked: 2026-09-26
+      confidence: medium
+      rules:
+        - when: {weekdays: [sat], times: ["12:30"]}
+          channels: [TNT Sports]
+        - when: {weekdays: [sat], times: ["15:00"]}
+          channels: [not on UK TV (3pm blackout)]
+          confidence: high
+        - channels: [Sky Sports]
+    DE:
+      source:
+        - https://www.sportspro.com/analysis/finance-investment/premier-league-2026-27-season-tv-rights-sponsors-finances-valuations/
+      checked: 2026-09-26
+      confidence: high
+      rules:
+        - channels: [Sky]
+    NL:
+      source:
+        - https://www.livesoccertv.com/competitions/england/premier-league/watch/netherlands/
+        - https://www.premierleague.com/en/media/broadcasters
+      checked: 2026-09-26
+      confidence: medium
+      note: Prime Video shows one match per matchweek in the Netherlands.
+      rules:
+        - channels: [Viaplay]
+
+  eng.fa:   # FA Cup
+    UK:
+      source:
+        - https://www.live-footballontv.com/live-fa-cup-football-on-tv.html
+        - https://www.thefa.com/news/2024/may/14/bbc-sport-deal-to-show-emirates-fa-cup-20241405
+      checked: 2026-09-26
+      confidence: high
+      rules:
+        - when: {stages: [final]}
+          channels: [BBC, TNT Sports]
+        - channels: [TNT Sports]
+          confidence: medium
+
+  ned.1:   # Eredivisie
+    NL:
+      source:
+        - https://www.knvb.nl/nieuws/betaald-voetbal/eredivisie/68671/eredivisie-en-espn-ronden-overeenkomst-af
+        - https://www.ziggo.nl/entertainment/sport/voetbal/eredivisie
+      checked: 2026-09-26
+      confidence: high
+      rules:
+        - channels: [ESPN]
+    DE:
+      source:
+        - https://cybernews.com/stream-online/how-to-watch-dutch-eredivisie-2026-27/
+      checked: 2026-09-26
+      confidence: medium
+      rules:
+        - channels: [Sportdigital]
+    UK:
+      source:
+        - https://x.com/EredivisieMike/status/2084263604992295343
+      checked: 2026-09-26
+      confidence: low
+      note: TrillerTV and Premier Sports dropped the Eredivisie; no UK broadcaster announced.
+      rules:
+        - channels: [no UK broadcaster]
+
+  ned.cup:   # KNVB Beker
+    NL:
+      source:
+        - https://www.ziggo.nl/entertainment/sport/voetbal/knvb-beker
+        - https://www.knvb.nl/nieuws/betaald-voetbal/eredivisie/68671/eredivisie-en-espn-ronden-overeenkomst-af
+      checked: 2026-09-26
+      confidence: high
+      rules:
+        - channels: [ESPN]
+
+  ned.supercup:   # Johan Cruijff Schaal
+    NL:
+      source:
+        - https://www.knvb.nl/nieuws/betaald-voetbal/eredivisie/68671/eredivisie-en-espn-ronden-overeenkomst-af
+      checked: 2026-09-26
+      confidence: medium
+      rules:
+        - channels: [ESPN]
+
+  uefa.champions:   # Champions League
+    DE:
+      source:
+        - https://www.fussballdaten.de/news/champions-league-uebertragung-2026-27-wer-zeigt-spiele-live-tv-stream/
+        - https://web.de/magazine/sport/fussball/champions-league/champions-league-20262027-tv-42638382
+      checked: 2026-09-26
+      confidence: high
+      note: Prime Video has the exclusive Tuesday 21:00 top game; which game is picked is announced per matchday.
+      rules:
+        # Heuristic: Prime usually picks the Tuesday game of a Bundesliga club.
+        - when: {weekdays: [tue], times: ["21:00"], league_teams: ger.1}
+          channels: [Prime Video]
+          confidence: low
+        - channels: [DAZN]
+    UK:
+      source:
+        - https://www.moneysupermarket.com/broadband/guides/where-to-watch-champions-league/
+        - https://www.live-footballontv.com/live-champions-league-football-on-tv.html
+      checked: 2026-09-26
+      confidence: high
+      note: Prime Video has first pick of one Tuesday game (17 games a season).
+      rules:
+        - when: {weekdays: [tue], times: ["20:00"], league_teams: eng.1, stages: [league-phase]}
+          channels: [Prime Video]
+          confidence: low
+        - channels: [TNT Sports]
+    NL:
+      source:
+        - https://www.ziggosport.nl/nieuws/262777-ziggo-sport-blijft-the-home-of-european-football-tot-en-met-2031/
+      checked: 2026-09-26
+      confidence: high
+      rules:
+        - channels: [Ziggo Sport]
+
+  uefa.europa:   # Europa League
+    DE:
+      source:
+        - https://www.fussballdaten.de/news/conference-league-uebertragung-2026-27-wo-laufen-spiele-live-tv-stream/
+        - https://sport.sky.de/fussball/artikel/europa-league-uebertragung-live-im-tv-und-stream/12530967/34172
+      checked: 2026-09-26
+      confidence: medium
+      note: RTL/NITRO show selected games free; RTL+ and Sky split the rest.
+      rules:
+        - channels: [RTL+, Sky]
+    UK:
+      source:
+        - https://www.live-footballontv.com/football-tv-rights-uk.html
+      checked: 2026-09-26
+      confidence: high
+      rules:
+        - channels: [TNT Sports]
+    NL:
+      source:
+        - https://www.ziggo.nl/entertainment/sport/voetbal/europa-league
+      checked: 2026-09-26
+      confidence: high
+      rules:
+        - channels: [Ziggo Sport]
+
+  uefa.europa.conf:   # Conference League
+    DE:
+      source:
+        - https://www.fussballdaten.de/news/conference-league-uebertragung-2026-27-wo-laufen-spiele-live-tv-stream/
+      checked: 2026-09-26
+      confidence: high
+      note: Selected games free on RTL or NITRO.
+      rules:
+        - channels: [RTL+]
+    UK:
+      source:
+        - https://www.wheresthematch.com/live-europa-conference-league-football-on-tv/
+      checked: 2026-09-26
+      confidence: high
+      rules:
+        - channels: [TNT Sports]
+    NL:
+      source:
+        - https://www.ziggo.nl/entertainment/sport/voetbal/conference-league
+      checked: 2026-09-26
+      confidence: high
+      rules:
+        - channels: [Ziggo Sport]
+
+  uefa.nations:   # Nations League
+    DE:
+      source:
+        - https://www.sportschau.de/fussball/nationsleague/alles-wichtige-zur-nations-league,uefa-nations-league-faq-100.html
+        - https://www.dslweb.de/dazn-nations-league.php
+      checked: 2026-09-26
+      confidence: high
+      note: RTL has all Germany away games; home games are split between ARD and ZDF.
+      rules:
+        - when: {away_team: ["481"]}
+          channels: [RTL]
+        - when: {home_team: ["481"], away_team: ["455", "449"]}   # Greece, Netherlands
+          channels: [ARD]
+        - when: {home_team: ["481"], away_team: ["6757"]}         # Serbia
+          channels: [ZDF]
+        - when: {home_team: ["481"]}
+          channels: [ARD/ZDF]
+          confidence: medium
+        - channels: [DAZN]
+          confidence: medium
+    NL:
+      source:
+        - https://www.fourfourtwo.com/competition/how-to-watch-germany-vs-netherlands-nations-league-free
+      checked: 2026-09-26
+      confidence: high
+      rules:
+        - when: {teams: ["449"]}
+          channels: [NOS]
+    UK:
+      source:
+        - https://www.techradar.com/how-to-watch/football/nations-league-2026-27-free
+      checked: 2026-09-26
+      confidence: medium
+      rules:
+        - when: {teams: ["448"]}
+          channels: [ITV]
+        - channels: [Viaplay]
+          confidence: low
+
+  uefa.euroq:   # EURO 2028 qualifying (starts March 2027)
+    DE:
+      source:
+        - https://www.sportschau.de/fussball/nationsleague/alles-wichtige-zur-nations-league,uefa-nations-league-faq-100.html
+      checked: 2026-09-26
+      confidence: low
+      note: No qualifiers before March 2027; broadcasters not yet announced. Re-check in early 2027.
+      rules:
+        - channels: [TBD]
+
+  fifa.worldq.uefa:   # World Cup qualifying (next cycle is 2030)
+    DE:
+      source:
+        - https://www.sportschau.de/fussball/nationsleague/alles-wichtige-zur-nations-league,uefa-nations-league-faq-100.html
+      checked: 2026-09-26
+      confidence: low
+      note: No World Cup qualifiers are played in 2026/27.
+      rules:
+        - channels: [TBD]
+
+  nfl:
+    DE:
+      source:
+        - https://www.spox.com/nfl/news/nfl-saison-2026-27-live-sehen-gibt-es-auch-eine-uebertragung-bei-dazn-oder-nur-sky-und-rtl/blteca02b418ea0cb93
+        - https://www.techbook.de/streaming/rtl-sky-nfl
+      checked: 2026-09-26
+      confidence: high
+      note: RTL/NITRO show all night games, two Sunday games, the Europe games and the Super Bowl; Sky/WOW up to 9 games a week.
+      rules:
+        - when: {tags: [primetime]}
+          channels: [RTL/NITRO, Sky, NFL Game Pass (DAZN)]
+        - when: {tags: [postseason]}
+          channels: [RTL/NITRO, Sky, NFL Game Pass (DAZN)]
+          confidence: medium
+        - channels: [Sky, NFL Game Pass (DAZN)]
+          confidence: medium
+    UK:
+      source:
+        - https://www.nfl.com/news/where-to-watch-the-nfl-in-the-uk-in-2026
+        - https://www.satandpcguy.com/2026/09/07/nfl-uk-2026-sky-sports-channel-5-netflix-and-dazn/
+      checked: 2026-09-26
+      confidence: medium
+      note: Channel 5 shows two Sunday games free; NFL Game Pass on DAZN has every game.
+      rules:
+        - channels: [Sky Sports NFL, NFL Game Pass (DAZN)]
+    NL:
+      source:
+        - https://www.vpngids.nl/unblock/sport/nfl-kijken-nederland/
+      checked: 2026-09-26
+      confidence: low
+      note: ESPN NL holds the rights but shows few live games (RedZone on Sundays); Game Pass has all games.
+      rules:
+        - channels: [ESPN, NFL Game Pass (DAZN)]
+
+  cfb:   # College football
+    DE:
+      source:
+        - https://dazngroup.com/press-room/dazn-startet-ncaa-channel-college-football-basketball-deutschland-oesterreich-schweiz/
+      checked: 2026-09-26
+      confidence: medium
+      rules:
+        - channels: [DAZN]
+    UK:
+      source:
+        - https://www.techradar.com/how-to-watch/american-football/college-football-2026-27-free
+      checked: 2026-09-26
+      confidence: medium
+      rules:
+        - channels: [DAZN]
+
+  mlb:
+    DE:
+      source:
+        - https://www.sport1.de/news/us-sport/mlb/2021/11/mlb-bei-sport1-live-im-free-tv-auf-sport1-und-sport1-extra-bis-2026
+      checked: 2026-09-26
+      confidence: medium
+      note: SPORT1 rights run through the 2026 season including the postseason.
+      rules:
+        - channels: [SPORT1+]
+    UK:
+      source:
+        - https://www.techradar.com/how-to-watch/sport/mlb-2026
+      checked: 2026-09-26
+      confidence: medium
+      rules:
+        - channels: [TNT Sports]
+    NL:
+      source:
+        - https://www.mlb.com/live-stream-games
+      checked: 2026-09-26
+      confidence: low
+      note: No Dutch TV partner found; MLB.TV streams games outside the US.
+      rules:
+        - channels: [MLB.TV]
+
+  f1:
+    DE:
+      source:
+        - https://www.sky.de/sport/motorsport/formel1
+        - https://www.motorsport-total.com/formel-1/news/livestream
+      checked: 2026-09-26
+      confidence: high
+      note: RTL shows a handful of races free in 2026.
+      rules:
+        - channels: [Sky]
+    UK:
+      source:
+        - https://skygroup.sky/en-gb/article/sky-and-channel-4-extend-partnership-to-keep-formula-1-highlights-and-the-british-gp-free-to-air-through-to-2026-
+      checked: 2026-09-26
+      confidence: high
+      note: Channel 4 shows highlights of qualifying, sprint and race.
+      rules:
+        - channels: [Sky Sports F1]
+    NL:
+      source:
+        - https://racingnews365.nl/formule-1-op-tv
+      checked: 2026-09-26
+      confidence: high
+      rules:
+        - channels: [Viaplay]

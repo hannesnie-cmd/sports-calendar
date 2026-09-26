@@ -1,0 +1,22 @@
+# One-off events added by hand (marathons, title fights, tennis finals, ...).
+# They go into both feeds exactly as written.
+#
+# Fields:
+#   id:     short unique slug; keeps the calendar entry stable when you edit it
+#   title:  event title (the sport emoji is added from `sport` unless the title already starts with one)
+#   start / end:  ISO date-time with offset, or local Berlin time without offset
+#   sport:  free text; known values get an emoji: running 🏃, boxing 🥊, tennis 🎾, cycling 🚴, golf ⛳, darts 🎯, other 🏆
+#   tv:     channels per language (EN, DE, NL); omit a language if unknown
+#   notes:  free text for the description
+#   link:   optional URL
+
+extras:
+  - id: berlin-marathon-2026
+    title: BMW Berlin-Marathon
+    start: 2026-09-27T08:00
+    end: 2026-09-27T11:00
+    sport: running
+    tv:
+      DE: RTL, RTL+
+    notes: Elite start around 08:45. After the RTL broadcast the stream continues on the marathon's YouTube channel.
+    link: https://www.bmw-berlin-marathon.com/en/

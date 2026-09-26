@@ -1,0 +1,159 @@
+# Which neutral ("big") games go into the calendar, plus general build settings.
+# Team ids are ESPN ids (see config/teams.yaml for how to look them up).
+
+window:
+  days_back: 7      # keep finished games (with results) visible for a week
+  days_ahead: 21
+
+durations_minutes:
+  soccer: 120
+  nfl: 210
+  cfb: 210
+  mlb: 210
+  f1_race: 120
+  f1_session: 60
+
+# Warn in the build log when a Berlin calendar week has more neutral events than this.
+volume_guardrail:
+  max_non_team_events_per_week: 20
+
+# Once a game qualifies as a big game it stays in the calendar, even if the
+# table changes before kickoff. Set to false to re-evaluate on every build.
+sticky_big_games: true
+
+lists:
+  elite_clubs:        # Champions League: both teams on this list
+    - "86"     # Real Madrid
+    - "83"     # Barcelona
+    - "1068"   # Atlético Madrid
+    - "132"    # Bayern
+    - "124"    # Dortmund
+    - "382"    # Man City
+    - "364"    # Liverpool
+    - "359"    # Arsenal
+    - "363"    # Chelsea
+    - "160"    # PSG
+    - "110"    # Inter
+    - "111"    # Juventus
+    - "103"    # Milan
+  top_nations:        # Nations League / qualifiers / tournaments: both teams on this list
+    - "164"    # Spain
+    - "478"    # France
+    - "448"    # England
+    - "482"    # Portugal
+    - "481"    # Germany
+    - "449"    # Netherlands
+    - "162"    # Italy
+    - "459"    # Belgium
+    - "202"    # Argentina
+    - "205"    # Brazil
+
+# Soccer competitions by ESPN league slug.
+#   label:     text used in titles ("⚽ Bayern vs Dortmund · Bundesliga")
+#   rule:      how neutral games qualify
+#     none               only games of my teams
+#     table_clash        both teams in the current top N; before matchday `table_from_matchday`
+#                        the `big_clubs` list is used instead of the table
+#     elite_or_knockout  both teams in lists.elite_clubs, or any game in `knockout_stages`
+#     knockout           any game in `knockout_stages`
+#     nations_clash      both teams in lists.top_nations
+#     tournament         both teams in lists.top_nations, or any game in `knockout_stages`
+#   matchday:  true for leagues (shows "Matchday N" in the description)
+soccer:
+  - slug: ger.1
+    label: Bundesliga
+    matchday: true
+    rule: table_clash
+    top_n: 6
+    table_from_matchday: 6
+    big_clubs: ["132", "124", "131", "11420", "125", "134"]   # Bayern, Dortmund, Leverkusen, Leipzig, Frankfurt, Stuttgart
+  - slug: ger.2
+    label: 2. Bundesliga
+    matchday: true
+    rule: none
+  - slug: eng.1
+    label: Premier League
+    matchday: true
+    rule: table_clash
+    top_n: 6
+    table_from_matchday: 6
+    big_clubs: ["382", "359", "364", "363", "360", "367"]     # Man City, Arsenal, Liverpool, Chelsea, Man United, Spurs
+  - slug: ned.1
+    label: Eredivisie
+    matchday: true
+    rule: table_clash
+    top_n: 3
+    table_from_matchday: 6
+    big_clubs: ["139", "148", "142"]                          # Ajax, PSV, Feyenoord
+  - slug: uefa.champions
+    label: Champions League
+    rule: elite_or_knockout
+    knockout_stages: [knockout-round-playoffs, round-of-16, quarterfinals, semifinals, final]
+  - slug: uefa.europa
+    label: Europa League
+    rule: knockout
+    knockout_stages: [round-of-16, quarterfinals, semifinals, final]
+  - slug: uefa.europa.conf
+    label: Conference League
+    rule: none
+  - slug: ger.dfb_pokal
+    label: DFB-Pokal
+    rule: knockout
+    knockout_stages: [quarterfinals, semifinals, final]
+  - slug: eng.fa
+    label: FA Cup
+    rule: knockout
+    knockout_stages: [final]
+  - slug: ned.cup
+    label: KNVB Beker
+    rule: none
+  - slug: ger.super_cup
+    label: Supercup
+    rule: none
+  - slug: ned.supercup
+    label: Johan Cruijff Schaal
+    rule: none
+  - slug: uefa.nations
+    label: Nations League
+    rule: nations_clash
+  - slug: uefa.euroq
+    label: EURO Qualifying
+    rule: nations_clash
+  - slug: fifa.worldq.uefa
+    label: WC Qualifying
+    rule: nations_clash
+  - slug: fifa.world
+    label: World Cup
+    rule: tournament
+    knockout_stages: [round-of-32, round-of-16, quarterfinals, semifinals, 3rd-place-match, final]
+  - slug: uefa.euro
+    label: EURO
+    rule: tournament
+    knockout_stages: [round-of-16, quarterfinals, semifinals, final]
+  - slug: fifa.friendly
+    label: Friendly
+    rule: none
+  - slug: club.friendly
+    label: Friendly
+    rule: none
+
+nfl:
+  label: NFL
+  primetime:
+    timezone: America/New_York
+    weekdays: [thu, sun, mon]
+    min_hour: 19          # kickoff at or after 19:00 Eastern
+  postseason: true
+  exclude_notes: ["Pro Bowl"]
+
+cfb:
+  label: College Football
+  ap_top_n: 15            # both teams ranked in the AP top N
+  include_notes:          # regexes on ESPN game notes (conference title games, playoff, title game)
+    - "Championship$"
+    - "College Football Playoff"
+
+mlb:
+  label: MLB
+  include_postseason_notes:   # regexes on ESPN game notes; Yankees games are always in
+    - "^(ALCS|NLCS|World Series)"

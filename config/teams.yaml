@@ -1,0 +1,49 @@
+# My teams: every game in every competition ESPN lists for them
+# (league, cups, European games, supercups, friendlies).
+#
+# espn_id: the team's ESPN id. Find one with
+#   curl -s https://site.api.espn.com/apis/site/v2/sports/<sport path>/teams | jq '.sports[0].leagues[0].teams[].team | {id, displayName}'
+# sport: soccer | nfl | cfb | mlb
+
+teams:
+  - name: Kaiserslautern
+    sport: soccer
+    espn_id: "130"
+  - name: Bayern
+    sport: soccer
+    espn_id: "132"
+  - name: Ajax
+    sport: soccer
+    espn_id: "139"
+  - name: Germany
+    sport: soccer
+    espn_id: "481"
+  - name: Netherlands
+    sport: soccer
+    espn_id: "449"
+  - name: Patriots
+    sport: nfl
+    espn_id: "17"
+  - name: Yankees
+    sport: mlb
+    espn_id: "10"
+  # USA men's national team is intentionally not followed.
+
+# Competitions to skip even for my teams (ESPN league slugs), e.g. ["club.friendly"].
+exclude_competitions: []
+
+# Optional: override how ESPN names a team in titles, keyed by ESPN team id.
+name_overrides:
+  "122": "Köln"
+  "268": "Gladbach"
+  "382": "Man City"
+  "360": "Man United"
+
+f1:
+  enabled: true
+  sessions:
+    practice: true            # FP1, FP2, FP3
+    sprint_qualifying: true
+    sprint: true
+    qualifying: true
+    race: true

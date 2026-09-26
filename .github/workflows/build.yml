@@ -1,0 +1,81 @@
+name: Build calendar
+
+on:
+  schedule:
+    - cron: "13,43 * * * *"      # every 30 minutes (off the full hour, when GitHub is busiest)
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["config/**", "src/**", ".github/workflows/build.yml"]
+
+permissions:
+  contents: write     # push the state branch
+  pages: write        # deploy GitHub Pages
+  id-token: write     # required by deploy-pages
+  actions: write      # keepalive: re-enable this workflow so GitHub never disables the schedule
+
+concurrency:
+  group: build-calendar
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: Test
+        run: python -m pytest -q
+
+      - name: Restore state (last good data per source)
+        run: |
+          if git ls-remote --exit-code --heads origin state >/dev/null 2>&1; then
+            git clone --quiet --depth 1 --branch state \
+              "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" state
+            rm -rf state/.git
+          else
+            echo "No state branch yet (first run)"; mkdir -p state
+          fi
+
+      - name: Build feeds
+        # Exit code 2 = refused to publish (feed would shrink while a source is down);
+        # the job stops here and the previously deployed feeds stay online.
+        run: python -m src.build_ics --out site --state state
+
+      - name: Save state
+        run: |
+          cd state
+          git init --quiet -b state
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit --quiet -m "State after run ${{ github.run_id }}"
+          git push --quiet --force \
+            "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" state
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - id: deploy
+        uses: actions/deploy-pages@v4
+
+      - name: Keep the schedule alive
+        if: github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/build.yml/enable" || true
+
+      - name: Source health (fails the run if a source has been down for 24h)
+        run: python -m src.build_ics --state state --check-health
