@@ -1,0 +1,202 @@
+{
+ "espn/cfb/2/5": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/cfb/2/6": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/cfb/2/7": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/cfb/2/8": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/cfb/2/9": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/cfb/ap": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/cfb/calendar": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/f1/20261004": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/f1/20261011": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/f1/20261025": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/f1/20261031": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/sb/eng.1/202610": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/sb/eng.fa/202610": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/sb/fifa.world/202610": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/sb/fifa.worldq.uefa/202610": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/sb/ger.1/202610": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/sb/ger.2/202610": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/sb/ger.dfb_pokal/202610": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/sb/mlb/202610": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/sb/ned.1/202610": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/sb/nfl/202610": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/sb/uefa.champions/202610": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/sb/uefa.euro/202610": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/sb/uefa.europa/202610": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/sb/uefa.euroq/202610": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/sb/uefa.nations/202610": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/standings/eng.1": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/standings/ger.1": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/standings/ger.2": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/standings/ned.1": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/team/mlb/10": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/team/nfl/17": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/team/soccer/130": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/team/soccer/132": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/team/soccer/139": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/team/soccer/449": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "espn/team/soccer/481": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "jolpica/results/2026/16": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "jolpica/results/2026/17": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ },
+ "jolpica/schedule/2026": {
+  "failing_since": null,
+  "last_error": null,
+  "last_success": "2026-10-10T20:03:17.754986+00:00"
+ }
+}
